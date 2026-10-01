@@ -1,0 +1,4 @@
+txn_id,account_id,merchant_id,txn_type,amount,currency,txn_timestamp,location_id,channel,counterparty_account_id,is_fraud_label
+1,1,1.0,DEBIT,100.0,GBP,2025-01-01 10:00:00,1,ONLINE,,0
+2,1,2.0,DEBIT,9500.0,GBP,2025-01-01 10:05:00,2,ONLINE,,0
+3,2,,CREDIT,500.0,GBP,2025-01-01 11:00:00,1,MOBILE,3.0,0

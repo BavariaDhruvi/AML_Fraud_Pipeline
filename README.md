@@ -18,6 +18,18 @@ End-to-end SQL + ML project simulating banking transactions and detecting:
 
 4. **Rapid fund cycling (optional)**  
    Large inflow followed by >80% outflow within 24 hours.
+
+## Data
+
+Synthetic datasets (in `data/`):
+- `customers.csv` – customer profiles and risk ratings  
+- `accounts.csv` – accounts linked to customers  
+- `merchants.csv` – merchants with categories and risk scores  
+- `locations.csv` – cities/countries with lat/lng  
+- `transactions_raw.csv` – transactions with injected fraud patterns:
+  - Structuring accounts (multiple £9k–£9.9k in 72h)
+  - Velocity spike accounts (many transactions in 24h)
+  - Impossible travel accounts (far locations within <2h)
    
 ## SQL queries
 

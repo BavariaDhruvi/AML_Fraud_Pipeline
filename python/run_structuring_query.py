@@ -1,12 +1,14 @@
 """
-Run the structuring detection query against synthetic data using DuckDB.
+Run AML/fraud detection queries against synthetic data using DuckDB.
+Executes:
+- 01_structuring_detection.sql
+- 02_velocity_anomalies.sql
 """
 
 import duckdb
 import os
 from pathlib import Path
 
-# Adjust this path if your script lives elsewhere
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 SQL_DIR = BASE_DIR / "sql"
@@ -35,17 +37,31 @@ con.execute("""
 CREATE TABLE transactions AS SELECT * FROM read_csv_auto('{}')
 """.format(DATA_DIR / "transactions_raw.csv"))
 
-# Load and run the structuring query
-query_path = SQL_DIR / "01_structuring_detection.sql"
-with open(query_path, "r", encoding="utf-8") as f:
-    query_sql = f.read()
+# Helper to run a query file and save results
+def run_query_file(query_filename, output_filename):
+    query_path = SQL_DIR / query_filename
+    with open(query_path, "r", encoding="utf-8") as f:
+        query_sql = f.read()
 
-result = con.execute(query_sql).fetchdf()
+    result = con.execute(query_sql).fetchdf()
+    print(f"\n=== {query_filename} ===")
+    print(result)
 
-print("Structuring detection results:")
-print(result)
+    output_path = DATA_DIR / output_filename
+    result.to_csv(output_path, index=False)
+    print(f"Results saved to {output_path}")
+    return result
 
-# Optional: save results to CSV
-output_path = DATA_DIR / "structuring_flags.csv"
-result.to_csv(output_path, index=False)
-print(f"\nResults saved to {output_path}")
+# 1) Structuring detection
+structuring_result = run_query_file(
+    "01_structuring_detection.sql",
+    "structuring_flags.csv"
+)
+
+# 2) Velocity anomalies
+velocity_result = run_query_file(
+    "02_velocity_anomalies.sql",
+    "velocity_flags.csv"
+)
+
+print("\nAll queries executed successfully.")

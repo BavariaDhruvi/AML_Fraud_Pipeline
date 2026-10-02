@@ -3,6 +3,7 @@ Run AML/fraud detection queries against synthetic data using DuckDB.
 Executes:
 - 01_structuring_detection.sql
 - 02_velocity_anomalies.sql
+- 03_impossible_travel.sql
 """
 
 import duckdb
@@ -62,6 +63,12 @@ structuring_result = run_query_file(
 velocity_result = run_query_file(
     "02_velocity_anomalies.sql",
     "velocity_flags.csv"
+)
+
+# 3) Impossible travel
+travel_result = run_query_file(
+    "03_impossible_travel.sql",
+    "travel_flags.csv"
 )
 
 print("\nAll queries executed successfully.")

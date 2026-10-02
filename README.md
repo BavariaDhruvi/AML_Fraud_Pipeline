@@ -18,3 +18,8 @@ End-to-end SQL + ML project simulating banking transactions and detecting:
 
 4. **Rapid fund cycling (optional)**  
    Large inflow followed by >80% outflow within 24 hours.
+   
+## SQL queries
+
+- `sql/01_structuring_detection.sql` – Detects basic structuring patterns:  
+  multiple transactions between £9,000–£9,900 within 72 hours on the same account.

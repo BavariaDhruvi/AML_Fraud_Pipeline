@@ -35,3 +35,24 @@ Synthetic datasets (in `data/`):
 
 - `sql/01_structuring_detection.sql` – Detects basic structuring patterns:  
   multiple transactions between £9,000–£9,900 within 72 hours on the same account.
+
+## Running the queries
+
+This project uses DuckDB (lightweight SQL engine) to run queries directly on CSV files.
+
+Local setup (one-time):
+
+```bash
+pip install duckdb
+```
+
+Run the structuring detection query:
+
+```bash
+cd python
+python run_structuring_query.py
+```
+
+Output:
+- Console: list of accounts flagged for structuring
+- File: `data/structuring_flags.csv`
